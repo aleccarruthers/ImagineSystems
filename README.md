@@ -1,6 +1,9 @@
 # ImagineSystems
 
 ## Build
+
+All of the following commands were run from an anaconda command prompt, but the same could be done from a standard command prompt as long as python can be accessed from it. 
+
 **Step 1**
 
 ```git clone https://github.com/aleccarruthers/ImagineSystems.git```
