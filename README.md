@@ -89,4 +89,5 @@ Lines 5 - 8:
 
 ### Scalability Considerations
 
+- Depending on the size of the computer/s used, storing each service's entire log may not be ideal, as it would result in additional memory complexity. I guess it really depends on all the possible use cases for the script. If valid request id's also need to be periodically queried, then all of the log should be stored in each 'logNode' object. However, if the logs only need to be checked for error codes, the entire log would not need to be stored indefinitely in the 'logNode' class. One could find all unique values for the 'code' column and if 500 exists, return the request id and if not, don't store the log.
 
