@@ -36,7 +36,7 @@ If the second option was used in Step 1:
  **Linux**
  
  ```
- source myenv/bin/activate
+ source [your_environment_name]/bin/activate
  pip install -r requirements.txt
  ```
  
@@ -45,8 +45,8 @@ If the second option was used in Step 1:
 </p>
  
  ```
- conda env create -f environment.yml
- conda activate AnaImgSys
+ conda env create -n [your_environment_name] -f environment.yml
+ conda activate [your_environment_name]
  ```
  
  ## Exectute
