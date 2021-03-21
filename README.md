@@ -23,7 +23,7 @@
  **Windows**
  
  ```
- .\myenv\bin\activate [your_environment_name]
+ .\[your_environment_name]\bin\activate
  pip install -r requirements.txt
  ```
  
