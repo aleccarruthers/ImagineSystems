@@ -92,31 +92,46 @@ The error seems to be a failed connection between service delta and epsilon beca
 ### Interpretation of Output
 
 The top line of the output states the likely cause of the problems, if any:
-- No Problems Exist: "No Errors in service"
+- No Problems Exist: "No Errors in service".
 - Invalid Termination of Request (a service intermittently
-failing): "Invalid Request Termination"
-- Missing Request ID (Failed Connectivity): "Unique ID not found - Failed Connectivity"
+failing): "Invalid Request Termination".
+- Missing Request ID (Failed Connectivity): "Unique ID not found - Failed Connectivity".
 
 Lines 2 - 4:
-- The request ID not found
-- The service the request ID was not found in
-- Last succesful message in service before failed connectivity
+- The request ID not found.
+- The service the request ID was not found in.
+- Last succesful message in service before failed connectivity.
 
 Lines 5 - 8:
-- The timestamps of the missing request ID in all services that actually contained it
+- The timestamps of the missing request ID in all services that actually contained it.
 
 *Note: The output text will be different if either no errors were detected or the service intermittently failed. The former outputs nothing, while the latter outputs just the service having the invalid termination and the timestamp it occurred.*
 
 
 ### Assumptions of Approach
 
-- The "problems" began at or approximately near the first timestamp in service alpha with a code value of '500', i.e. an error.
-- The error codes propagate back to parent services, i.e. an invalid request termination in service delta would cause the entire path of services used to get to service delta to have a code value of 500 for the errored request id. 
+- The "problems" began at or approximately near the first timestamp in service alpha with a code value of '500'.
+- The error codes propagate back to parent services, i.e. an invalid request termination in service delta would cause the entire path of services used to get to service delta to have a code value of 500 for the errored request id. As a result, the errored requests have to show up in service alpha as an error.
 - While not tested because of the datasets, if no code value equals 500 in service alpha, it is assumed that no errors occurred in the service.
 - A missing request ID is a faulty connection between the last service to have the request ID and the service missing it.
 - A service intermittently failing occurrs when a service has a code value of 500 and a text value of 'request terminated'. This was not the first error, so it was not encountered here.
 - Any entry/row in the log is complete, i.e. each attribute of the dictionary has a value.
 - The values for each entry in the dictionary agree with the provided possible values, i.e. a code value of 300 won't be found in any of the entries.
+
+### High-Level Procedure/Description of the Program
+
+1.) Create 'logNode' objects for each log file. The object contains all entries of the log file as a pandas dataframe, the service's name, the number of entries in the log file, the child services/nodes of the log file and information about the first errored request, where applicable.
+
+2.) Add the root service to a queue (alpha).
+
+3.) Pop the one and only element from the queue and examine it for errored entries.
+   - If no errors exist and the service is the root service, terminate the script because no problems occurred.
+   - If an error exists and the 'text' attribute of the specific request id says "request terminated", terminate the script and state the error occurred at the current service at the timestamp associated with the errored request.
+   - If an error exists and the 'text' attribute of the specific request id says "call to [child-node]", check if the [child-node] dataframe contains the errored request id.
+      - If the errored request id exists in the [child-node], add the [child-node] to the queue, so it is processed next.
+      - If the errored request id does not exist in the [child-node], terminate the script. A [child-node] not containing an errored request id, indicates a faulty connection between the immediate parent service of [child-node] and [child-node] itself.
+
+4.) Repeat step 3 until the error has been found or a break occurs.
 
 
 ### Scalability Considerations
