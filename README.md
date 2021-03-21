@@ -1,5 +1,14 @@
 # ImagineSystems
 
+## Dependencies
+
+All dependencies can be resolved by installing:
+
+- ```numpy``` 
+- ```pandas```
+
+Alternatively, the ```requirements.txt``` or ```environment.yml``` can be used to create a virtual environment or anaconda environment, respectively, with the required setup.
+
 ## Build
 
 All of the following commands were run from an anaconda command prompt, but the same could be done from a standard command prompt as long as python can be accessed from it. 
