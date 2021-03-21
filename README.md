@@ -40,8 +40,7 @@
  ## Explanation
  
  
- **Questions**
- 
+ ### Questions
 The output of ```main.py``` is provided below:
 
 ```
@@ -60,7 +59,7 @@ Service: delta,  Timestamp: 2021-03-12T13:13:55.383835000
 The error seems to be a failed connection between service delta and epsilon, as the unique request id found in alpha, beta, and delta, which should have been sent to epsilon, is not found. "When the problem first begins" can be interpreted in a couple of ways. First, one could argue that the problem begins at the same time as when service alpha has its first '500' value, i.e. an errored request. If that is the case, the problem first begins at: **2021-03-12T13:13:55.369835000**. Alternatively, the problems could have begun just after the timestamp in service epsilon that was closest to the timestamp of the first errored message at service A (what was shown previously). For example, if the first errored message in service A took place at 4:00 PM and the closest timestamp in service epsilon to this time was at 3:58 PM, one could argue that the problems arose at 3:58:01 PM because without addiditonal samples being sent to service E, it is hard to dermine the exact time the connection became faulty between 3:58 and 4:00 PM. With this approach, service epsilon could have become faulty immediately instantaneously after ***2021-03-12T13:13:14.142511000***.
 
 
-**Output Interpretation**
+### Interpretation of Output
 
 The top line of the output states the likely cause of the problems if any:
 - No Problems Exist: "No Errors in service"
@@ -79,4 +78,15 @@ Lines 5 - 8:
 *Note: The output text will be different if either no errors were detected or the service intermittently failed. The former outputs nothing, while the latter outputs just the service having the invalid termination and the timestamp it occurred.*
 
 
-**Notes about Scalability**
+### Assumptions of Approach
+
+- The "problems" began at or approximately near the first timestamp in service A with a code value of '500', i.e. an error.
+- The error codes propagate back to parent services, i.e. an invalid request termination in service delta would cause the entire path of services used to get to service delta to have a code value of 500 for the errored request id.
+- While not tested because of the datasets, if no code value equals 500 in service A, it is assumed that no errors occurred.
+- A missing request ID is a faulty connection between the last service to have the request ID and the service missing it.
+- A service intermittently failing occurrs when a service has a code value of 500 and a text value of 'request terminated'. This was not the first error, so it was not considered here
+
+
+### Scalability Considerations
+
+
