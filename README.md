@@ -11,7 +11,7 @@
 
 **Step 2**
 
-```cd ImagineSystems```   
+```cd ImagineSystems-main```   
 
 **Step 3**
 <p align="center">
