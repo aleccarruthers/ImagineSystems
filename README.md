@@ -4,8 +4,8 @@
 
 All dependencies can be resolved by installing:
 
-- ```numpy``` 
-- ```pandas```
+- numpy 
+- pandas
 
 Alternatively, the ```requirements.txt``` or ```environment.yml``` can be used to create a virtual environment or anaconda environment, respectively, with the required setup.
 
