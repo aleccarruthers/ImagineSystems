@@ -51,7 +51,7 @@ If the second option was used in Step 1:
  
  ## Exectute
 
-From the ```ImagineSystems``` directory:
+From the ```ImagineSystems``` (step 1: options 1) or ```ImagineSystems-main``` (step1: option 2) directory:
 
 ``` python main.py```
 
