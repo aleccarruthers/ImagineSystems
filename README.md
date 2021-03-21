@@ -11,7 +11,13 @@
 
 **Step 2**
 
-```cd ImagineSystems-main```   
+If the first option was used in Step 1:
+
+```cd ImagineSystems```   
+
+If the second option was used in Step 1:
+
+```cd ImagineSystems-main```
 
 **Step 3**
 <p align="center">
