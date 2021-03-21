@@ -1,9 +1,19 @@
 # ImagineSystems
 
 ## Build
+**Step 1**
+
 ```git clone https://github.com/aleccarruthers/ImagineSystems.git```
+   
+   or
+    
+   Click on the green 'code' button next to the 'Add File' button >>> Download ZIP
+
+**Step 2**
 
 ```cd ImagineSystems```   
+
+**Step 3**
 <p align="center">
   <b>Virtual Environment</b><br>
 </p>
