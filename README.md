@@ -35,6 +35,8 @@
  
  ## Exectute
 
+From the ```ImagineSystems``` directory:
+
 ``` python main.py```
 
  ## Explanation
