@@ -115,9 +115,3 @@ Lines 5 - 8:
 - Only serial computing was used here, but with hundres of logs, each with millions of parameters, it may be advantageous to implement parallel computing strategies, such that multiple logs could be analyzed at the same time.
 - Another possible limitation, which is related to the first point, could be how the dataframes for each log are created. In the current design, lines of the log file are looped over, converted to a python dictionary using JSON, and appended to a list. The list is then concatenated to form the dataframe for the log. With the largest file having just 1234 entries, this approach is fast enough, but some alternate method may need to implemented such that multiple lines could be parsed at the same time while keeping their order in tact. 
 - One of the biggest adjustments that would need to be made to handle hundreds of services would be the inclusion of unit tests. Here, it was not really necessary because the log files were all structured in a similar way, non-dynamic, and had no missing or faulty values. However, as the number of services increases and under the assumption that this script is working with dynamic data streams, the need for unit tests would increase. The unit tests I would include are:
-         - Checking the keys of the log dataframe to make sure no keys are missing and or no keys have been mistakenly added to that piece of data.
-         - Checking that the values of the log keys are consistent with their range of possible values
-         - Checking the log files exists when being read
-         - Checking the format of values in the log, i.e. the request id should be a string not a number
-         - Checking the exit status of all possible conditions: No errors found, invalid termination, and faulty connectivity
-         - Checking that adding an invalid child node/service to an existing node/service throws an error 
